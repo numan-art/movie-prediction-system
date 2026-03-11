@@ -45,7 +45,7 @@ combined_df['hier_cluster'] = hierarchical.fit_predict(scaled_features)
 pca = PCA(n_components=2)
 pca_res = pca.fit_transform(scaled_features)
 combined_df['pca_x'], combined_df['pca_y'] = pca_res[:, 0], pca_res[:, 1]
-fig, (ax1) = plt.subplots(figsize=(16, 6))
+fig,ax1= plt.subplots(figsize=(16, 6))
 
 
 sns.scatterplot(x='pca_x', y='pca_y', hue='kmeans_cluster', data=combined_df, ax=ax1, palette='Set1').set_title('PCA (Global Structure)')
