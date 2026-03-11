@@ -2,7 +2,12 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.cluster import AgglomerativeClustering
+from sklearn.preprocessing import StandardScaler
 import scipy.cluster.hierarchy as sch
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+import seaborn as sns
 df1=pd.read_csv('movies.csv')
 df1.head()
 df2=pd.read_csv('ratings.csv')
@@ -16,8 +21,6 @@ print("Duplicates in df1:", df1['movie_id'].duplicated().sum())
 print("Duplicates in df2:", df2['movie_id'].duplicated().sum())
 print(df1.isnull().sum())
 print(df2.isnull().sum())
-import pandas as pd
-from sklearn.preprocessing import StandardScaler
 movie_stats = df2.groupby('movie_id').agg(
     avg_rating=('rating', 'mean'),
     popularity=('rating', 'count')
@@ -29,8 +32,6 @@ scaler = StandardScaler()
 scaled_features = scaler.fit_transform(features)
 print("Feature matrix ready! Shape:", scaled_features.shape)
 
-from sklearn.cluster import KMeans
-
 # We'll start with 5 clusters as an estimate
 k = 5
 kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
@@ -41,11 +42,6 @@ print("K-Means clustering finished!")
 # Run Hierarchical Clustering
 hierarchical = AgglomerativeClustering(n_clusters=k, linkage='ward')
 combined_df['hier_cluster'] = hierarchical.fit_predict(scaled_features)
-
-from sklearn.decomposition import PCA
-from sklearn.manifold import TSNE
-import seaborn as sns
-
 # PCA Reduction
 pca = PCA(n_components=2)
 pca_res = pca.fit_transform(scaled_features)
