@@ -4,40 +4,18 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import AgglomerativeClustering
 import scipy.cluster.hierarchy as sch
 df1=pd.read_csv('movies.csv')
-
 df.head()
-
 df2=pd.read_csv('ratings.csv')
-
-"""merging two csv files so that we can get gener,rating
-
-"""
-
 merged_df = pd.merge(df1, df2, on='movie_id', how='inner')
-
-"""verifying whether the two rows are merged or not
-
-"""
-
 print("Shape of df1:", df1.shape)
 print("Shape of df2:", df2.shape)
 print("Shape of merged_df:", merged_df.shape)
 print("\nFirst few rows:")
 print(merged_df.head())
-
-"""removing duplicate values after merging the files
-
-"""
-
 print("Duplicates in df1:", df1['movie_id'].duplicated().sum())
 print("Duplicates in df2:", df2['movie_id'].duplicated().sum())
-
-"""checking whether there are any blanks or gaps in columns"""
-
 print(df1.isnull().sum())
-
 print(df2.isnull().sum())
-
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 movie_stats = df2.groupby('movie_id').agg(
