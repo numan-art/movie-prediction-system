@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import AgglomerativeClustering
 import scipy.cluster.hierarchy as sch
 df1=pd.read_csv('movies.csv')
-df.head()
+df1.head()
 df2=pd.read_csv('ratings.csv')
 merged_df = pd.merge(df1, df2, on='movie_id', how='inner')
 print("Shape of df1:", df1.shape)
